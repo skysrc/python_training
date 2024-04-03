@@ -1,0 +1,15 @@
+pip install uvicorn
+pip list
+uvicorn chap01.api:app --port 8000 --reload
+python main.py
+
+modules - collection of python files in a folder and __init__.py
+packages - every python file is a package.
+
+
+You can unstage files from the index using
+
+git reset HEAD -- path/to/file
+Just like git add, you can unstage files recursively by directory and so forth, so to unstage everything at once, run this from the root directory of your repository:
+
+git reset HEAD -- .
