@@ -11,7 +11,7 @@ router = APIRouter()
 events=[]
 
 @router.put('/event-update/{id}')
-async def update_event(id: int, new_data: EventUpdate = Body(), session=Depends(get_session))-> Event:
+async def update_event(id: int, new_data: EventUpdate = Body(), session=Depends(get_session), user: str =Depends(authenticate))-> Event:
      event = session.get(Event, id)
      if event:
           event_data = new_data.model_dump(exclude_unset=True) # unset data to remove
@@ -32,7 +32,7 @@ async def retrieve_all_event(session=Depends(get_session), user: str =Depends(au
     return events
 
 @router.get('/{id}', response_model=Event)
-async def retrieve_event(id: int, session=Depends(get_session))-> Event:
+async def retrieve_event(id: int, session=Depends(get_session), user: str =Depends(authenticate))-> Event:
      event = session.get(Event,id)
      if event:
           return event
@@ -42,14 +42,14 @@ async def retrieve_event(id: int, session=Depends(get_session))-> Event:
 
 # Depends() - will run first before anything else
 @router.post("/new")
-async def create_event(new_event: Event, session=Depends(get_session)) -> dict:
+async def create_event(new_event: Event, session=Depends(get_session), user: str =Depends(authenticate)) -> dict:
        session.add(new_event)
        session.commit()
        session.refresh(new_event) # repopulate the obj
        return {"message": "Event created successfully"}
 
 @router.delete("/{id}")
-async def delete_event(id: int, session=Depends(get_session)) -> dict:
+async def delete_event(id: int, session=Depends(get_session), user: str =Depends(authenticate)) -> dict:
      event = session.get(Event, id)
      if event:
           session.delete(event)
@@ -65,7 +65,7 @@ async def delete_event(id: int, session=Depends(get_session)) -> dict:
 
 
 @router.delete("/")
-async def delete_all_events(session=Depends(get_session)) -> dict:
+async def delete_all_events(session=Depends(get_session), user: str =Depends(authenticate)) -> dict:
      statement = delete(Event).where(1==1)
      session.exec(statement)
      session.commit()

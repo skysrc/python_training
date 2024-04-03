@@ -5,10 +5,11 @@ from database.connection import conn
 from routes.events import router as EventRouter
 from routes.users import router as UserRouter
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # ORM 
+    # before application start : 
     conn()
     yield
     # Do nothing
@@ -17,6 +18,14 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(EventRouter, prefix="/event")
 app.include_router(UserRouter, prefix="/user")
+
+#register origin - domain that are allowed to access this APi from browser
+origins = ['*'] # all origins are allowed
+app.add_middleware(CORSMiddleware, 
+                   allow_origins = origins,
+                   allow_credentials = True,
+                   allow_methods = ["*"],
+                   allow_headers = ["*"])
 
 # # run this automaticallly when startup the server.
 # @app.on_event("startup")
