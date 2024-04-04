@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Hello World1</h1>
+    Title : <span id="title"></span> <br>
+    Image : <span id="image"></span> <br>
+    Location : <span id="location"></span> <br>
+    <script>
+        $(function() {
+            $.get("http://localhost:8001/event/", function(data, status) {
+                console.log(data, status);
+                let event = data[0]
+                $("#title").text(event.title)
+                $("#image").text(event.image)
+                $("#location").text(event.location)
+
+            });
+        });
+    </script>
+</body>
+</html>

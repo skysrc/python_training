@@ -10,6 +10,16 @@ router = APIRouter()
 
 events=[]
 
+@router.get("/all/{token}", response_model=List[Event])
+async def retrieve_all_event(token: str, session=Depends(get_session)) -> List[Event]:
+    # we need to manage this token in DB in real app
+    if token == "xxxxxx":
+     statement = select(Event)
+     events = session.exec(statement).all()
+     return events
+    
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
 @router.put('/event-update/{id}')
 async def update_event(id: int, new_data: EventUpdate = Body(), session=Depends(get_session), user: str =Depends(authenticate))-> Event:
      event = session.get(Event, id)

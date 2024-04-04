@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>JWT Demo</h1>
+    Title : <span id="title"></span> <br>
+    Image : <span id="image"></span> <br>
+    Location : <span id="location"></span> <br>
+    <script>
+        $(function() {
+            let access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoic2t5QGdtYWlsLmNvbSIsImV4cGlyZSI6MTcxMjIwODQ4OC40NDI3MjI4fQ.MluEF65VAc-FYEI3yQitGolEqLMtpm3oVV4CPWXyWCw';
+            let headers = {'Authorization': 'Bearer ' + access_token};
+            $.ajax({
+                url: 'http://localhost:8001/event/1',
+                headers: headers,
+                success: function(event, status) {
+                    console.log(event,status)
+                    $("#title").text(event.title)
+                    $("#image").text(event.image)
+                    $("#location").text(event.location)
+                }
+            })
+            // $.get("http://localhost:8001/event/1", function(event, status) {
+               
+
+            // }, headers);
+        });
+    </script>
+</body>
+</html>
