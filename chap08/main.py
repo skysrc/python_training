@@ -20,7 +20,9 @@ app.include_router(EventRouter, prefix="/event")
 app.include_router(UserRouter, prefix="/user")
 
 #register origin - domain that are allowed to access this APi from browser
-origins = ['http://localhost:3000','http://127.0.0.1:5500'] # all origins are allowed
+origins = ['http://localhost:3000',
+           'http://127.0.0.1:5500',
+           'http://localhost:5173'] # all origins are allowed
 app.add_middleware(CORSMiddleware, 
                    allow_origins = origins,
                    allow_credentials = True,

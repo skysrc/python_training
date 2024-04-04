@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Vue.js Demo</title>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="doFetch">Fetch Event</button>
+      <li v-for="evt in events">{{evt.title}}</li>
+    </div>
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            events: [],
+          };
+        },
+        methods: {
+          doFetch() {
+            // this will call the API
+            fetch("http://localhost:8001/event/")
+              .then((data) => data.json())
+              .then((json) => {
+                console.log(json)
+                // this.events = json;
+                this.events.push(...json)
+            });
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
