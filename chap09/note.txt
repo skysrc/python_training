@@ -1,0 +1,19 @@
+on development machine
+1. pip freeze > requirements.txt
+
+in production server, run the following command 
+1.python -m venv prodenv
+2.pip install -r requirements.txt
+3.python main.python
+
+extra suggestion
+-integration with nginx / Apache
+ -bridge
+
+
+ Regarding .env
+ - to set settings for development vs production
+ - don't share this file to GIT, just share the template (empty values)
+ - create .env file 
+ - insert the entry of value pair
+ - use this package : pip install pythong-dotenv

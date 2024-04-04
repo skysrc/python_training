@@ -2,6 +2,8 @@ pip install uvicorn
 pip list
 uvicorn chap01.api:app --port 8000 --reload
 python main.py
+pip freeze > requirements.txt
+python -m venv prodenv
 
 modules - collection of python files in a folder and __init__.py
 packages - every python file is a package.

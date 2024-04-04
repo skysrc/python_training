@@ -1,1 +1,14 @@
 https://gitlab.com/azman1204/fastapi-orsted
+
+Installed 
+-dbeaver
+-postman
+-python
+-laragon
+
+Extension
+-Python
+-Prettier
+-Material Icon
+-Pylance
+-Python Debugger
